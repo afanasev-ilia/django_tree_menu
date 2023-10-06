@@ -21,7 +21,7 @@ class Menu(models.Model):
         return self.title
 
 
-class Item_menu(models.Model):
+class ItemMenu(models.Model):
     title = models.CharField(
         'название пункта меню',
         max_length=200,
@@ -41,7 +41,9 @@ class Item_menu(models.Model):
     parent = models.ForeignKey(
         'self',
         related_name='childrens',
-        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
         help_text='выберите родительский пункт меню',
         )
 
