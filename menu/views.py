@@ -1,6 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.views.generic.base import TemplateView
 
 
-def index(request):
-    return HttpResponse('Главная страница')
+class IndexPageView(TemplateView):
+    template_name = 'menu/index.html'
