@@ -1,7 +1,8 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from django import template
 from django.template.context import RequestContext
+from django.db.models.query import QuerySet
 from django.utils.safestring import SafeText
 
 from menu.models import ItemMenu
@@ -34,12 +35,15 @@ def draw_menu(context: RequestContext, menu: SafeText) -> Dict[str, list[Any]]:
             ]
         }
     result_dict['menu'] = menu
-    print(type(result_dict))
 
     return result_dict
 
 
-def get_child_items(items_values, current_item_id, neighbors_items_id_list):
+def get_child_items(
+    items_values: QuerySet,
+    current_item_id: int,
+    neighbors_items_id_list: List[int],
+) -> List[Dict]:
     item_list = [
         item for item in items_values.filter(parent_id=current_item_id)
     ]
@@ -51,7 +55,10 @@ def get_child_items(items_values, current_item_id, neighbors_items_id_list):
     return item_list
 
 
-def get_neighbors_items(active_item, main_item):
+def get_neighbors_items(
+    active_item: ItemMenu,
+    main_item: List[Dict],
+) -> List[int]:
     neighbors_items_id_list = []
 
     while active_item:
@@ -61,4 +68,5 @@ def get_neighbors_items(active_item, main_item):
         for item in main_item:
             if item['id'] == active_item.id:
                 neighbors_items_id_list.append(active_item.id)
+    print(type(neighbors_items_id_list[0]))
     return neighbors_items_id_list
