@@ -1,8 +1,8 @@
 from typing import Any, Dict, List
 
 from django import template
-from django.template.context import RequestContext
 from django.db.models.query import QuerySet
+from django.template.context import RequestContext
 from django.utils.safestring import SafeText
 
 from menu.models import ItemMenu
